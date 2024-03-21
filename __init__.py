@@ -8,7 +8,7 @@ import math
 from custom_nodes.facerestore_cf.facelib.utils.face_restoration_helper import FaceRestoreHelper
 from custom_nodes.facerestore_cf.facelib.detection.retinaface import retinaface
 from torchvision.transforms.functional import normalize
-from comfy_extras.chainner_models import model_loading
+from spandrel import ModelLoader, ImageModelDescriptor
 import folder_paths
 import sys
 from custom_nodes.facerestore_cf.basicsr.utils.registry import ARCH_REGISTRY
@@ -268,7 +268,7 @@ class FaceRestoreModelLoader:
     # def load_model(self, model_name):
     #     model_path = folder_paths.get_full_path("facerestore_models", model_name)
     #     sd = comfy.utils.load_torch_file(model_path, safe_load=True)
-    #     out = model_loading.load_state_dict(sd).eval()
+    #     out = ModelLoader().load_from_state_dict(sd).eval()
     #     return (out, )
 
     def load_model(self, model_name):
@@ -290,7 +290,7 @@ class FaceRestoreModelLoader:
         else:
             model_path = folder_paths.get_full_path("facerestore_models", model_name)
             sd = comfy.utils.load_torch_file(model_path, safe_load=True)
-            out = model_loading.load_state_dict(sd).eval()
+            out = ModelLoader().load_from_state_dict(sd).eval()
             return (out, )
 
 NODE_CLASS_MAPPINGS = {
